@@ -1,23 +1,16 @@
-// src/components/Product.jsx
+import { useEffect } from 'react';
+export const Modal = () => {
+  useEffect(() => {
+    // Зберігаємо ідентифікатор інтервалу в змінну
+    const intervalId = setInterval(() => {
+      console.log(`Interval - ${Date.now()}`);
+    }, 2000);
 
-import PropTypes from 'prop-types';
+    return () => {
+      // Очищаємо інтервал за його ідентифікатором
+      clearInterval(intervalId);
+    };
+  }, []);
 
-export const Product = ({
-  name,
-  imgUrl = 'https://dummyimage.com/640x480/2a2a2a/ffffff&text=Product+image+placeholder',
-  price,
-}) => (
-  <div>
-    <img src={imgUrl} alt={name} width="480" />
-    <h2>{name}</h2>    <p>Price: {price} credits</p> {' '}
-  </div>
-);
-
-// Опис типів пропсів компонента
-Product.propTypes = {
-  name: PropTypes.string.isRequired,
-  imgUrl: PropTypes.string,
-  price: PropTypes.number.isRequired,
+  return <div>Modal</div>;
 };
-
-export default Product;

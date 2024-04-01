@@ -1,18 +1,26 @@
-// // src/components/App.jsx
+import { useState, useEffect } from 'react';
 
-import { Product } from './Product';
+const App = () => {
+  const [clicks, setClicks] = useState(() => {
+    const savedClicks = window.localStorage.getItem('saved-clicks');
+    if (savedClicks !== null) {
+      return savedClicks;
+    }
+    return 0;
+  });
 
-export default function App() {
+  useEffect(() => {
+    window.localStorage.setItem('saved-clicks', clicks);
+  }, [clicks]);
+
   return (
     <div>
-      <h1>Best selling</h1>
-
-      <Product name="Tacos With Lime" price={10.99} />
-      <Product
-        name="Fries and Burger"
-        imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?dpr=2&h=480&w=640"
-        price={14.29}
-      />
+      <button onClick={() => setClicks(clicks + 1)}>
+        You clicked {clicks} times
+      </button>
+      <button onClick={() => setClicks(0)}>Reset</button>
     </div>
   );
-}
+};
+
+export default App;
